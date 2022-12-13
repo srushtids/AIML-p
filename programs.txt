@@ -1,0 +1,20 @@
+import pandas as pd
+import numpy as np
+df=pd.DataFrame({
+    "date":pd.date_range(start="2020-05-01",periods=100,freq="D"),
+    "temperature":np.random.randint(18,30,size=100)+np.random.random(100).round(1)
+})
+df.head()
+
+
+df["temperature_lag_1"]=df["temperature"].shift(1,fill_value=df.temperature.min())
+df.head()
+
+df_weekly=df.resample("W",on="date").mean()
+df_weekly.head()
+
+df.set_index("date").asfreq("W").head()
+
+df.set_index("date").rolling(3).mean().head
+
+df.set_index ("date").rolling(3,center=True).mean().head()
